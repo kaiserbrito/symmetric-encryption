@@ -75,7 +75,7 @@ module SymmetricEncryption
         begin
           raise(ConfigError, "Cannot find config file: #{file_name}") unless File.exist?(file_name)
 
-          env_config = self.class.load_yaml(ERB.new(File.new(file_name).read).result)[env]
+          env_config = self.class.load_yaml(ERB.new(File.new(file_name).read).result, aliases: true)[env]
           raise(ConfigError, "Cannot find environment: #{env} in config file: #{file_name}") unless env_config
 
           env_config = self.class.send(:deep_symbolize_keys, env_config)
